@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'voyage/Theme/activite-theme.html.twig' 'jquery.collection.html.twig' %}
+
+{% block title %}{{voyage.nom}}{% endblock %}
+
+{% block titlePage %}{{voyage.nom}}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('viewVoyage') }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Départ</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{voyage.dateDeb.format('d/m/Y')}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-plane-departure fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Durée</div>
+                  {% set difference = date(voyage.dateFin).diff(date(voyage.dateDeb)) %} 
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{difference.d}} jours</div>
+                </div>
+                <div class="col-auto">
+                  <i class="far fa-calendar-alt fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Evènements</div>
+                  <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{voyage.activites|length}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Budget</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">1200</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        
+        <div class="col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Planning</h6>
+                </div>
+                <div class="card-body">
+                    <div id="calendar"></div>
+                    <ul>
+                    {% for activite in voyage.activites %}
+                        <li>{{activite.nom}}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ajouter au planning</h6>
+                </div>
+                <div class="card-body">
+                    {{form_start(form)}}
+                    {{form_rest(form)}}
+                    <button type="submit" class="mt-4 btn btn-success">Enregistrer</button>
+                    {{form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

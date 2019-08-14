@@ -9,6 +9,16 @@
       "css": [
         "/build/vendors~app.css"
       ]
+    },
+    "viewVoyage": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~viewVoyage.js",
+        "/build/viewVoyage.js"
+      ],
+      "css": [
+        "/build/vendors~viewVoyage.css"
+      ]
     }
   }
 }

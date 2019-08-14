@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoyageRepository")
@@ -33,7 +34,18 @@ class Voyage
      */
     private $nom;
     
+    /**
+    * @Gedmo\Slug(fields={"nom"})
+    * @ORM\Column(length=255, unique=true)
+    */
+    private $slug;  
     
+    /**
+     * @var \User
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="voyages")
+     */
+    private $user;
+
     /**
      * @var \Activite
      * 
@@ -115,6 +127,30 @@ class Voyage
                 $activite->setVoyage(null);
             }
         }
+
+        return $this;
+    }
+    
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

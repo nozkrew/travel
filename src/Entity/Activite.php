@@ -110,6 +110,7 @@ class Activite
 
     public function setVoyage(?Voyage $voyage): self
     {
+        $voyage->addActivite($this);
         $this->voyage = $voyage;
 
         return $this;

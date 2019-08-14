@@ -36,7 +36,7 @@
 /phpunit.xml
 
 # Build data
-/build/
+/public/build/
 
 # Composer PHAR
 /composer.phar
