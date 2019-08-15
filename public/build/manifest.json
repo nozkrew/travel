@@ -3,7 +3,7 @@
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~app.css": "/build/vendors~app.css",
   "build/vendors~app.js": "/build/vendors~app.js",
-  "build/vendors~app~viewVoyage.js": "/build/vendors~app~viewVoyage.js",
+  "build/vendors~viewVoyage.css": "/build/vendors~viewVoyage.css",
   "build/vendors~viewVoyage.js": "/build/vendors~viewVoyage.js",
   "build/viewVoyage.js": "/build/viewVoyage.js",
   "build/fonts/fa-brands-400.eot": "/build/fonts/fa-brands-400.03783c51.eot",
@@ -20,6 +20,5 @@
   "build/fonts/fa-solid-900.eot": "/build/fonts/fa-solid-900.ef3df984.eot",
   "build/images/fa-brands-400.svg": "/build/images/fa-brands-400.073c2f3c.svg",
   "build/images/fa-regular-400.svg": "/build/images/fa-regular-400.8fdea4e8.svg",
-  "build/images/fa-solid-900.svg": "/build/images/fa-solid-900.b557f56e.svg",
-  "build/vendors~viewVoyage.css": "/build/vendors~viewVoyage.css"
+  "build/images/fa-solid-900.svg": "/build/images/fa-solid-900.b557f56e.svg"
 }

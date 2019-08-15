@@ -74,6 +74,8 @@ class VoyageController extends AbstractController
             'slug' => $slug
         ));
         
+        $events = $this->getFullCalendarEvents($voyage->getActivites());
+        
         $form = $this->createForm(VoyageActivitiesType::class);
         
         $form->handleRequest($request);
@@ -95,8 +97,25 @@ class VoyageController extends AbstractController
         
         return $this->render('voyage/view.html.twig', [
             'voyage' => $voyage,
+            'events' => $events,
             'form' => $form->createView()
         ]);
+    }
+    
+    private function getFullCalendarEvents($activites){
+        $events = array();
+        foreach($activites as $activite){
+            $tmp = array();
+            $tmp['id'] = $activite->getId();
+            $tmp['title'] = $activite->getNom();
+            $tmp['start'] = $activite->getDateDeb()->format('Y-m-d H:i');
+            $tmp['end'] = $activite->getDateFin()->format('Y-m-d H:i');
+            $tmp['backgroundColor'] = $activite->getCategorie()->getCouleur();
+            $tmp['borderColor'] = $activite->getCategorie()->getCouleur();
+            $events[] = $tmp;
+        }
+        
+        return json_encode($events);
     }
     
     private function getVoyageRepository(){

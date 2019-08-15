@@ -6,6 +6,11 @@
 
 {% block titlePage %}{{voyage.nom}}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('viewVoyage') }}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('viewVoyage') }}
@@ -94,12 +99,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Planning</h6>
                 </div>
                 <div class="card-body">
-                    <div id="calendar"></div>
-                    <ul>
-                    {% for activite in voyage.activites %}
-                        <li>{{activite.nom}}</li>
-                    {% endfor %}
-                    </ul>
+                    <div id="calendar" data-events='{{events|raw}}'></div>
                 </div>
             </div>
         </div>

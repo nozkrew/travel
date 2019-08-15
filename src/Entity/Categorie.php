@@ -24,6 +24,11 @@ class Categorie
     private $libelle;
     
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $couleur;
+    
+    /**
      * @var \Activite
      * 
      * @ORM\OneToMany(targetEntity="Activite", mappedBy="categorie")
@@ -79,6 +84,18 @@ class Categorie
                 $activite->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(string $couleur): self
+    {
+        $this->couleur = $couleur;
 
         return $this;
     }

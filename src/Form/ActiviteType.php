@@ -34,7 +34,7 @@ class ActiviteType extends AbstractType
             ))
             ->add('nom')
             ->add('description', TextareaType::class, array(
-                
+                'required' => false
             ))
             ->add('categorie', EntityType::class, array(
                 'class' =>Categorie::class,
