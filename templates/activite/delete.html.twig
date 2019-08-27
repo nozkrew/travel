@@ -1,0 +1,25 @@
+{% extends 'default.html.twig' %}
+
+{% block title %}{{activite.nom}} - Suppression{% endblock %}
+
+{% block titlePage %}{{activite.nom}}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Suppression {{activite.nom}}</h6>
+                </div>
+                <div class="card-body">
+                    {{form_start(form)}}
+                    <h4>Etes vous sur de vouloir supprimer {{activite.nom}} ?</h4>
+                    {{form_rest(form)}}
+                    <a href='' class="mt-4 btn btn-primary">Non</a>
+                    <button type="submit" class="mt-4 btn btn-danger">Oui</button>
+                    {{form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

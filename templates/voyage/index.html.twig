@@ -1,0 +1,66 @@
+{% extends 'default.html.twig' %}
+
+{% block title %}Mes voyages{% endblock %}
+
+{% block titlePage %}Mes voyages{% endblock %}
+
+{% block content %}
+    <div class="row">
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Nouveau voyage</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-plus fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row no-gutters align-items-center">
+                        <a href="{{path("voyageapp_voyage_add")}}" class="btn btn-info btn-icon-split">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <span class="text">Ajouter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% for voyage in voyages %}
+            {% set difference = date(voyage.dateFin).diff(date(voyage.dateDeb)) %}            
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{difference.d}} jours</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{voyage.nom}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row no-gutters align-items-center">
+                        <a href="{{path("voyageapp_voyage_view", {'slug':voyage.slug})}}" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <span class="text">Voir</span>
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+     
+    </div>
+{% endblock %}
