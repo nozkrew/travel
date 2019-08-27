@@ -12,15 +12,32 @@ import '@fullcalendar/list/main.css';
 
 require('./jquery.collection');
 var moment = require('moment');
-//require('../vendor/eonasdan/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');
+
+require('eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');
+require('eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
 
 $(".activites-collection").collection({
     add_at_the_end: true,
     add: '<a href="#" class="btn btn-primary mt-4"><i class="fas fa-plus-circle"></i></a>',
     allow_up: false,
     allow_down: false,
-    init_with_n_elements: 1
+    init_with_n_elements: 1,
+    after_init: function (){
+        dateTimePickerInit();
+    },
+    after_add:function(){
+        dateTimePickerInit();
+    }
 });
+
+
+function dateTimePickerInit(){
+    //A revoir
+    $('.datetimepicker').datetimepicker({
+        format: 'DD/MM/YYYY H:mm'
+    });
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
