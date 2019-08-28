@@ -1,3 +1,9 @@
+global.moment = require('moment');
+import 'moment/locale/fr';
+require('tempusdominus-bootstrap-4');
+
+import 'tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css';
+
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -11,10 +17,6 @@ import '@fullcalendar/timegrid/main.css';
 import '@fullcalendar/list/main.css';
 
 require('./jquery.collection');
-var moment = require('moment');
-
-require('eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');
-require('eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
 
 $(".activites-collection").collection({
     add_at_the_end: true,
@@ -30,11 +32,15 @@ $(".activites-collection").collection({
     }
 });
 
-
 function dateTimePickerInit(){
-    //A revoir
     $('.datetimepicker').datetimepicker({
-        format: 'DD/MM/YYYY H:mm'
+        format: 'DD/MM/YYYY H:mm',
+        icons: {
+           time: 'far fa-clock',
+           date: 'far fa-calendar-alt',
+        },
+        locale: 'fr',
+        //defaultDate: "11/1/2013 12:00"
     });
 }
 

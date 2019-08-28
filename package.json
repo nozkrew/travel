@@ -24,6 +24,7 @@
         "@fullcalendar/timegrid": "^4.3.0",
         "eonasdan-bootstrap-datetimepicker": "^4.17.47",
         "startbootstrap-sb-admin-2": "^4.0.6",
-        "symfony-collection": "github:ninsuo/symfony-collection"
+        "symfony-collection": "github:ninsuo/symfony-collection",
+        "tempusdominus-bootstrap-4": "^5.1.2"
     }
 }

@@ -38,7 +38,8 @@ class ActiviteType extends AbstractType
             ))
             ->add('categorie', EntityType::class, array(
                 'class' =>Categorie::class,
-                'choice_label' => "libelle"
+                'choice_label' => "libelle",
+                'placeholder' => 'SELECTIONNER'
             ))
         ;
     }

@@ -6,23 +6,23 @@
         </div>
         <div class="form-group col-md-3">
             {{form_label(form.dateDeb, "Début")}}
-            {{form_widget(form.dateDeb, {'attr':{'class':'form-control datetimepicker'}})}}
+            {{form_widget(form.dateDeb, {'attr':{'class':'form-control datetimepicker datetimepicker-input', 'data-start-date':'', 'data-toggle':"datetimepicker", 'data-target':'#'~form.dateDeb.vars.id, 'placeholder':'Ex: '~"now"|date("m/d/Y H:i")}})}}
             {{form_errors(form.dateDeb)}}
         </div>
         <div class="form-group col-md-3">
             {{form_label(form.dateFin, "Fin")}}
-            {{form_widget(form.dateFin, {'attr':{'class':'form-control datetimepicker'}})}}
+            {{form_widget(form.dateFin, {'attr':{'class':'form-control datetimepicker datetimepicker-input', 'data-start-date':'', 'data-toggle':"datetimepicker", 'data-target':'#'~form.dateFin.vars.id, 'placeholder':'Ex: '~"now"|date("m/d/Y H:i")}})}}
             {{form_errors(form.dateFin)}}
         </div>
         <div class="form-group col-md-3">
             {{form_label(form.nom, "Nom")}}
-            {{form_widget(form.nom, {'attr':{'class':'form-control'}})}}
+            {{form_widget(form.nom, {'attr':{'class':'form-control', 'placeholder':'Ex: Hotel La Plage, ...'}})}}
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
             {{form_label(form.description, "Description")}}
-            {{form_widget(form.description, {'attr':{'class':'form-control'}})}}
+            {{form_widget(form.description, {'attr':{'class':'form-control', 'placeholder':"Ajoutez une descritpion"}})}}
         </div>
     </div>
         <a href="#" class="collection-remove btn btn-danger"><i class="fas fa-minus-circle"></i></a>
