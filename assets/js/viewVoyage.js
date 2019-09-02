@@ -9,6 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import frLocale from '@fullcalendar/core/locales/fr';
 
 import '@fullcalendar/core/main.css';
@@ -37,22 +38,47 @@ function dateTimePickerInit(){
         format: 'DD/MM/YYYY H:mm',
         icons: {
            time: 'far fa-clock',
-           date: 'far fa-calendar-alt',
+           //date: 'far fa-calendar-alt',
         },
         locale: 'fr',
         //defaultDate: "11/1/2013 12:00"
     });
 }
 
+function updateDate(info){
+    
+    var start = moment(info.event.start).format("DD/MM/YYYY HH:mm");
+    
+    var end = null;
+    if(info.event.end !== null){
+        end = moment(info.event.end).format("DD/MM/YYYY HH:mm");
+    }
+    
+    $.ajax({
+        url: info.event.extendedProps.urlUpdate,
+        method: 'POST',
+        data:{
+            dateDeb: start,
+            dateFin: end
+        },
+        success: function(response){
+            if(response.erreur == true){
+                $('#errorModal').find('.modal-body').html("<p>"+response.message+"</p>");
+                $('#errorModal').modal('show');
+            }
+        }
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
+    //let draggableEl = document.getElementById('calendar');
     
     var events = $(calendarEl).data('events');
     var defaultDate = $(calendarEl).data('default-date');
     
     let calendar = new Calendar(calendarEl, {
-        plugins: [ dayGridPlugin, timeGridPlugin, listPlugin, bootstrapPlugin],
+        plugins: [ dayGridPlugin, timeGridPlugin, listPlugin, bootstrapPlugin, interactionPlugin ],
         themeSystem: 'bootstrap',
         events: events,
         eventTextColor: '#FFFFFF',
@@ -62,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             right:  'dayGridMonth, timeGridWeek, timeGridDay'
         },
         locale: frLocale,
+        editable: true,
         defaultDate: defaultDate,
         eventClick: function (info){
             
@@ -73,15 +100,24 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.find('.modal-body').find("#eventDescription").text(info.event.extendedProps.description);
             
             modal.find('.modal-footer').find('a').attr('href', info.event.extendedProps.urlDelete);
-//            $('#modalBody').html(event.description);
-//            $('#eventUrl').attr('href',event.url);
             $('#calendarModal').modal();
-            
-//            alert('Event: ' + info.event.title);
-//            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-//            alert('View: ' + info.view.type);
+
+        },
+        eventDrop: function(info) {
+            //alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+
+            updateDate(info);
+
+//            if (!confirm("Are you sure about this change?")) {
+//              info.revert();
+//            }
+        },
+        eventResize: function (info){
+            //alert(info.event.title + " was resize on " + info.event.start.toISOString());
+            updateDate(info);
         }
     });
 
     calendar.render();
+    
 });

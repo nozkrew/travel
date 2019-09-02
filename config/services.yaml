@@ -29,6 +29,9 @@ services:
     App\Form\ActiviteType:
         arguments: ['%form_datetime_format%']
         
+    App\Form\ActiviteDateTimeType:
+        arguments: ['%form_datetime_format%']
+        
     app.form.registration:
         class: App\Form\RegistrationType
         tags:

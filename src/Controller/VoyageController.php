@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\VoyageType;
 use App\Entity\Voyage;
+use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\VoyageActivitiesType;
 
@@ -85,6 +86,8 @@ class VoyageController extends AbstractController
             }
         ));
         
+        $categories = $this->getCategorieRepository()->findAll();
+        
         $form = $this->createForm(VoyageActivitiesType::class);
         
         $form->handleRequest($request);
@@ -107,7 +110,8 @@ class VoyageController extends AbstractController
         return $this->render('voyage/view.html.twig', [
             'voyage' => $voyage,
             'events' => $events,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'categories' => $categories
         ]);
     }
     
@@ -121,6 +125,7 @@ class VoyageController extends AbstractController
             $tmp['end'] = $activite->getDateFin()->format('Y-m-d H:i');
             $tmp['description'] = $activite->getDescription();
             $tmp['urlDelete'] = $this->generateUrl("app_activite_delete", array('id'=>$activite->getId(), 'slug'=>$activite->getSlug()));
+            $tmp['urlUpdate'] = $this->generateUrl("app_activite_editdate", array('id'=>$activite->getId(), 'slug'=>$activite->getSlug()));
             $tmp['backgroundColor'] = $activite->getCategorie()->getCouleur();
             $tmp['borderColor'] = $activite->getCategorie()->getCouleur();
             $events[] = $tmp;
@@ -130,5 +135,9 @@ class VoyageController extends AbstractController
     
     private function getVoyageRepository(){
         return $this->getDoctrine()->getRepository(Voyage::class);
+    }
+    
+    private function getCategorieRepository(){
+        return $this->getDoctrine()->getRepository(Categorie::class);
     }
 }
