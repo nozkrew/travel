@@ -15,7 +15,7 @@
                     {{form_start(form)}}
                     <h4>Etes vous sur de vouloir supprimer {{activite.nom}} ?</h4>
                     {{form_rest(form)}}
-                    <a href='' class="mt-4 btn btn-primary">Non</a>
+                    <a href='{{path('voyageapp_voyage_view', {'slug':activite.voyage.slug})}}' class="mt-4 btn btn-primary">Non</a>
                     <button type="submit" class="mt-4 btn btn-danger">Oui</button>
                     {{form_end(form)}}
                 </div>

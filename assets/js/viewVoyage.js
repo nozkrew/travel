@@ -83,12 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
         events: events,
         eventTextColor: '#FFFFFF',
         header: {
-            left:   'prev,next, today',
+            left:   'prev,next',
             center: 'title',
             right:  'dayGridMonth, timeGridWeek, timeGridDay'
         },
         locale: frLocale,
         editable: true,
+        aspectRatio: 2.5,
         defaultDate: defaultDate,
         eventClick: function (info){
             

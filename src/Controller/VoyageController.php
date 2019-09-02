@@ -86,7 +86,9 @@ class VoyageController extends AbstractController
             }
         ));
         
-        $categories = $this->getCategorieRepository()->findAll();
+        $categories = $this->getCategorieRepository()->findBy(array(), array(
+            'libelle' => "ASC"
+        ));
         
         $form = $this->createForm(VoyageActivitiesType::class);
         
