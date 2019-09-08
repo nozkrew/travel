@@ -9,6 +9,7 @@ use App\Entity\Voyage;
 use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\VoyageActivitiesType;
+use App\Form\VoyageEtapesType;
 
 /**
 * @Route("/voyage", name="voyage")
@@ -84,6 +85,11 @@ class VoyageController extends AbstractController
             function($activite) {
                 return !$activite->getSupprime();
             }
+        ), $voyage->getEtapes()->filter(
+            //tri sur les activité non supprimées
+            function($etape) {
+                return !$etape->getSupprime();
+            }
         ));
         
         $categories = $this->getCategorieRepository()->findBy(array(), array(
@@ -93,11 +99,17 @@ class VoyageController extends AbstractController
         $form = $this->createForm(VoyageActivitiesType::class);
         
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             foreach($form->get('activites')->getData() as $activite){
                 $activite->setVoyage($voyage);
                 $em->persist($activite);
+            }
+            
+            foreach($form->get('etapes')->getData() as $etape){
+                $etape->setVoyage($voyage);
+                $em->persist($etape);
             }
             try{
                 $em->flush();
@@ -106,7 +118,6 @@ class VoyageController extends AbstractController
             } catch (\Exception $ex) {
                 $this->get('session')->getFlashBag()->add('error', "Une erreur est survenue lors de l'enregistrement. Veuillez ré-éssayer");
             }
-            
         }
         
         return $this->render('voyage/view.html.twig', [
@@ -117,11 +128,12 @@ class VoyageController extends AbstractController
         ]);
     }
     
-    private function getFullCalendarEvents($activites){
+    private function getFullCalendarEvents($activites, $etapes){
+                
         $events = array();
         foreach($activites as $activite){
             $tmp = array();
-            $tmp['id'] = $activite->getId();
+            $tmp['id'] = 'activite-'.$activite->getId();
             $tmp['title'] = $activite->getNom();
             $tmp['start'] = $activite->getDateDeb()->format('Y-m-d H:i');
             $tmp['end'] = $activite->getDateFin()->format('Y-m-d H:i');
@@ -131,7 +143,20 @@ class VoyageController extends AbstractController
             $tmp['backgroundColor'] = $activite->getCategorie()->getCouleur();
             $tmp['borderColor'] = $activite->getCategorie()->getCouleur();
             $events[] = $tmp;
-        }        
+        } 
+        
+        foreach($etapes as $etape){
+            $tmp = array();
+            $tmp['id'] = 'etape-'.$etape->getId();
+            $tmp['title'] = $etape->getVille();
+            $tmp['start'] = $etape->getDateDeb()->format('Y-m-d');
+            $tmp['end'] = $etape->getDateFin()->format('Y-m-d');
+            $tmp['rendering'] = 'background';
+            //couleur du background
+            $tmp['color'] = $etape->getCouleur()->getCode();
+            $events[] = $tmp;
+        } 
+        
         return json_encode($events);
     }
     

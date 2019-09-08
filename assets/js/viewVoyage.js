@@ -25,6 +25,22 @@ $(".activites-collection").collection({
     allow_up: false,
     allow_down: false,
     init_with_n_elements: 1,
+    prefix: 'activite',
+    after_init: function (){
+        dateTimePickerInit();
+    },
+    after_add:function(){
+        dateTimePickerInit();
+    }
+});
+
+$(".etape-collection").collection({
+    add_at_the_end: true,
+    add: '<a href="#" class="btn btn-primary mt-4"><i class="fas fa-plus-circle"></i></a>',
+    allow_up: false,
+    allow_down: false,
+    init_with_n_elements: 1,
+    prefix: 'etape',
     after_init: function (){
         dateTimePickerInit();
     },
@@ -34,6 +50,7 @@ $(".activites-collection").collection({
 });
 
 function dateTimePickerInit(){
+    
     $('.datetimepicker').datetimepicker({
         format: 'DD/MM/YYYY H:mm',
         icons: {
@@ -42,7 +59,7 @@ function dateTimePickerInit(){
         },
         locale: 'fr',
         //defaultDate: "11/1/2013 12:00"
-    });
+    }); 
 }
 
 function updateDate(info){
@@ -116,6 +133,13 @@ document.addEventListener('DOMContentLoaded', function() {
         eventResize: function (info){
             //alert(info.event.title + " was resize on " + info.event.start.toISOString());
             updateDate(info);
+        },
+        eventRender: function(info, element){
+            //Pour les etapes
+            if(info.event.rendering == 'background'){
+                console.log(info.el);
+                info.el.append(info.event.title);
+            }
         }
     });
 

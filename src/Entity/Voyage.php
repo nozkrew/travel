@@ -52,10 +52,18 @@ class Voyage
      * @ORM\OneToMany(targetEntity="Activite", mappedBy="voyage")
      */
     private $activites;
+    
+    /**
+     * @var \Etape
+     * 
+     * @ORM\OneToMany(targetEntity="Etape", mappedBy="voyage")
+     */
+    private $etapes;
 
     public function __construct()
     {
         $this->activites = new ArrayCollection();
+        $this->etapes = new ArrayCollection();
     }
     
 
@@ -151,6 +159,37 @@ class Voyage
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Etape[]
+     */
+    public function getEtapes(): Collection
+    {
+        return $this->etapes;
+    }
+
+    public function addEtape(Etape $etape): self
+    {
+        if (!$this->etapes->contains($etape)) {
+            $this->etapes[] = $etape;
+            $etape->setVoyage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtape(Etape $etape): self
+    {
+        if ($this->etapes->contains($etape)) {
+            $this->etapes->removeElement($etape);
+            // set the owning side to null (unless already changed)
+            if ($etape->getVoyage() === $this) {
+                $etape->setVoyage(null);
+            }
+        }
 
         return $this;
     }

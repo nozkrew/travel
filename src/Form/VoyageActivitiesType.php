@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\ActiviteType;
+use App\Form\EtapeType;
+
 
 class VoyageActivitiesType extends AbstractType
 {
@@ -25,6 +27,20 @@ class VoyageActivitiesType extends AbstractType
                 'prototype' => true,
                 'attr' => array(
                     'class' => 'activites-collection',
+                ),
+                'label' => false
+            ))
+            ->add('etapes', CollectionType::class, array(
+                'entry_type' => EtapeType::class,
+                'entry_options' => array(
+                    'label' => false
+                ),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'prototype' => true,
+                'attr' => array(
+                    'class' => 'etape-collection',
                 ),
                 'label' => false
             ))

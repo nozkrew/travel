@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     form_datetime_format: dd/MM/yyyy HH:mm
+    form_date_format: dd/MM/yyyy
     mailer_user: mail@mail.com
     app_name: Travel App
 
@@ -36,6 +37,17 @@ services:
         class: App\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+            
+    App\Form\EtapeType:
+        arguments: ['%form_date_format%']
+        
+    etape_listener:
+        class: App\EntityListener\EtapeListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+        arguments: ["@doctrine.orm.entity_manager"]
+        
+        
 #    app.twig.voyage:
 #        class: App\Twig\VoyageExtension
 #        arguments: ['@security.token_storage', '@doctrine.orm.entity_manager']

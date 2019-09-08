@@ -1,6 +1,6 @@
 {% extends 'default.html.twig' %}
 
-{% form_theme form 'voyage/Theme/activite-theme.html.twig' 'jquery.collection.html.twig' %}
+{% form_theme form 'voyage/Theme/activite-theme.html.twig' 'voyage/Theme/etape-theme.html.twig' 'jquery.collection.html.twig' %}
 
 {% block title %}{{voyage.nom}}{% endblock %}
 
@@ -77,10 +77,10 @@
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Evènements</div>
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Etapes</div>
                   <div class="row no-gutters align-items-center">
                     <div class="col-auto">
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{voyage.activites|length}}</div>
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{voyage.etapes|length}}</div>
                     </div>
                   </div>
                 </div>
@@ -116,6 +116,10 @@
                 </div>
                 <div class="card-body">
                     {{form_start(form)}}
+                    <h4>Evénements</h4>
+                    {{form_widget(form.activites)}}
+                    <h4>Etape</h4>
+                    {{form_widget(form.etapes)}}
                     {{form_rest(form)}}
                     <button type="submit" class="mt-4 btn btn-success">Enregistrer</button>
                     {{form_end(form)}}
