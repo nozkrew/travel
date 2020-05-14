@@ -9,5 +9,7 @@ Visualisation sur un calendrier de tout ce qui est prévu, informations utiles
 Import des données
 ==========
 Les données de bases se trouvent dans le dossier "db"
+
 Login : admin
+
 Mot de passe : admin
